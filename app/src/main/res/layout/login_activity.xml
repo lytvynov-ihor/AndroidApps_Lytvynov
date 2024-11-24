@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".loginActivity">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -33,38 +33,39 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInputLayout"
         style="@style/LoginEditBox"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:hint="Enter your email"
-        app:endIconMode="custom"
+        app:endIconContentDescription="content_description_end_icon"
         app:endIconDrawable="@drawable/ic_mail"
-        app:endIconContentDescription="content_description_end_icon">
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPassword"
         style="@style/LoginEditBox"
-        app:layout_constraintTop_toTopOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="25dp"
         android:hint="Password"
-        app:endIconMode="custom"
+        app:endIconContentDescription="content_description_end_icon"
         app:endIconDrawable="@drawable/ic_lock"
-        app:endIconContentDescription="content_description_end_icon">
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
