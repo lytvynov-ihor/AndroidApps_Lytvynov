@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LoginEditBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">300dp</item>
+    </style>
+
+    <style name="RegisterEditBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_width">355dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconContentDescription">content_description_end_icon</item>
+    </style>
+</resources>
