@@ -1,7 +1,5 @@
 package com.example.firstassignment
 
-import android.util.Patterns
-
 class CredentialsManager {
 
     fun isEmailValid(email: String): Boolean {
@@ -25,5 +23,16 @@ class CredentialsManager {
         if (password.isEmpty()) return false
 
         return true
+    }
+
+    fun checkLoginData(email: String, password: String): Boolean {
+        if (email == "test@te.st" && password == "1234")
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
     }
 }

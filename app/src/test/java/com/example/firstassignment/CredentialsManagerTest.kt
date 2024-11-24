@@ -2,7 +2,6 @@ package com.example.firstassignment
 
 import org.junit.Test
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 
 class CredentialsManagerTest {
 
