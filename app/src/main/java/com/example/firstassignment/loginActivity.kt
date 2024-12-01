@@ -8,60 +8,55 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 
-
 class loginActivity : AppCompatActivity() {
+    private val credentialsManager = CredentialsManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-
-        val credentialsManager = CredentialsManager()
         val registerNow = findViewById<TextView>(R.id.registerNow)
         val loginEmail = findViewById<TextInputLayout>(R.id.emailInputLayout)
         val loginPassword = findViewById<TextInputLayout>(R.id.loginPassword)
         val loginNextButton = findViewById<Button>(R.id.Next)
 
-        loginNextButton.setOnClickListener{
-
-            val emailText = loginEmail.editText?.text.toString()
-            val passwordText = loginPassword.editText?.text.toString()
+        loginNextButton.setOnClickListener {
+            val emailText = loginEmail.editText?.text.toString().trim()
+            val passwordText = loginPassword.editText?.text.toString().trim()
             val correctEmail = "test@te.st"
             val correctPassword = "1234"
 
+            loginEmail.error = null
+            loginPassword.error = null
+
             if (!credentialsManager.isEmailValid(emailText)) {
-                loginEmail.error = "Wrong email"
+                loginEmail.error = "Invalid email format"
+                return@setOnClickListener
             }
 
             if (!credentialsManager.isPasswordValid(passwordText)) {
-                loginPassword.error = "Password is not valid"
+                loginPassword.error = "Password cannot be empty"
+                return@setOnClickListener
             }
 
-            if (credentialsManager.checkLoginData(emailText, passwordText)) {
+            val loginSuccessful = (emailText == correctEmail && passwordText == correctPassword) ||
+                    credentialsManager.login(emailText, passwordText)
+
+            if (loginSuccessful)
+            {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
-
-            else {
-                loginEmail.error = "Wrong email or password"
-                loginPassword.error = "Wrong email or password"
+            else
+            {
+                loginEmail.error = "Incorrect email or password"
+                loginPassword.error = "Incorrect email or password"
             }
         }
-        registerNow.setOnClickListener{
-            Log.d("Onboarding","Register now presses")
 
-            val goToRegistrationIntent = Intent(this@loginActivity,RegisterScreen::class.java)
+        registerNow.setOnClickListener {
+            val goToRegistrationIntent = Intent(this@loginActivity, RegisterScreen::class.java)
             startActivity(goToRegistrationIntent)
         }
-
-
-
     }
-
-
-
-
-
-
-
-
-    }
+}
