@@ -1,38 +1,45 @@
 package com.example.firstassignment
 
 class CredentialsManager {
+    private val credentials = mutableMapOf<String, String>()
+
+    private val emailPattern = ("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+")
 
     fun isEmailValid(email: String): Boolean {
-        //Check for empty email
-        if (email.isEmpty()) return false
-
-        val emailPattern = ("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                "\\@" +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                "(" +
-                "\\." +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                ")+")
         val regex = Regex(emailPattern)
-
         return regex.matches(email)
     }
 
     fun isPasswordValid(password: String): Boolean {
-        //Check for empty password
-        if (password.isEmpty()) return false
-
-        return true
+        return password.isNotEmpty()
     }
 
-    fun checkLoginData(email: String, password: String): Boolean {
-        if (email == "test@te.st" && password == "1234")
-        {
+    fun areCredentialsValid(email: String, password: String): Boolean {
+        return credentials[email.lowercase()] == password
+    }
+
+    fun login(email: String, password: String): Boolean {
+        if (email == "test@te.st" && password == "1234") {
             return true
         }
-        else
-        {
-            return false
+        return areCredentialsValid(email, password)
+    }
+
+    fun register(email: String, password: String): Boolean {
+        if (isEmailValid(email) && isPasswordValid(password)) {
+            val normalizedEmail = email.lowercase()
+            if (credentials.containsKey(normalizedEmail)) {
+                return false
+            }
+            credentials[normalizedEmail] = password
+            return true
         }
+        return false
     }
 }
