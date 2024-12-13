@@ -11,7 +11,10 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 
 
-class SampleViewsActivity : AppCompatActivity() {
+class SampleViewsActivity : AppCompatActivity(), FragmentA.EventHandler
+{
+    val credentialsManager = CredentialsManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,8 +29,9 @@ class SampleViewsActivity : AppCompatActivity() {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.sampleActivity)
             supportFragmentManager.commit{
                 if(currentFragment is FragmentA){
+                    val fragment = FragmentB(credentialsManager)
 
-                    replace<FragmentB>(R.id.sampleActivity)
+                    replace(R.id.sampleActivity, fragment)
                     addToBackStack(null)
                 }
                 else{
@@ -36,5 +40,9 @@ class SampleViewsActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun goToB() {
+        TODO("Not yet implemented")
     }
 }
