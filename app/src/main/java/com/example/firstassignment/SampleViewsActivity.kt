@@ -10,38 +10,33 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 
 class SampleViewsActivity : AppCompatActivity() {
-    private val credentialsManager = CredentialsManager()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_sample_views)
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Initial fragment
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                replace(R.id.sampleActivity, LoginFragment(credentialsManager))
-            }
+        // Set the initial fragment
+        supportFragmentManager.commit {
+            replace<LoginFragment>(R.id.sampleActivity)
         }
     }
 
     fun switchToRegisterFragment() {
         supportFragmentManager.commit {
-            replace(R.id.sampleActivity, RegisterFragment(credentialsManager))
-            addToBackStack(null)
+            replace<RegisterFragment>(R.id.sampleActivity)
+            addToBackStack(null) // Enable back navigation
         }
     }
 
     fun switchToLoginFragment() {
         supportFragmentManager.commit {
-            replace(R.id.sampleActivity, LoginFragment(credentialsManager))
-            addToBackStack(null)
+            replace<LoginFragment>(R.id.sampleActivity)
+            addToBackStack(null) // Enable back navigation
         }
     }
 }
