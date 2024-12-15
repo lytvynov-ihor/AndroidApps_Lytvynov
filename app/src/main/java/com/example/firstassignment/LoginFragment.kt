@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 
-class LoginFragment(private val credentialsManager: CredentialsManager) : Fragment(R.layout.login_activity) {
+class LoginFragment : Fragment(R.layout.login_activity) {
+    private val credentialsManager = CredentialsManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +41,7 @@ class LoginFragment(private val credentialsManager: CredentialsManager) : Fragme
                     credentialsManager.login(emailText, passwordText)
 
             if (loginSuccessful) {
-                // add logic if needed
+                // You can define any post-login action here if required
             } else {
                 loginEmail.error = "Incorrect email or password"
                 loginPassword.error = "Incorrect email or password"
