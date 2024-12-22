@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">first assignment</string>
+
+    <string-array name="food_titles">
+        <item>Position 1</item>
+        <item>Position 2</item>
+        <item>Position 3</item>
+        <item>Position 4</item>
+        <item>Position 5</item>
+    </string-array>
+
+    <string-array name="food_descriptions">
+        <item>Description 1</item>
+        <item>Description 2</item>
+        <item>Description 3</item>
+        <item>Description 4</item>
+        <item>Description 5</item>
+    </string-array>
 </resources>
