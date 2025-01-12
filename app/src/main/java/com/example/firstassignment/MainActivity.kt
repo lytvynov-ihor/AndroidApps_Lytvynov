@@ -32,5 +32,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        lifecycleScope.launch {
+            viewModel.filteredFoodList.collectLatest { filteredList ->
+                adapter.updateData(filteredList)
+            }
+        }
     }
 }
