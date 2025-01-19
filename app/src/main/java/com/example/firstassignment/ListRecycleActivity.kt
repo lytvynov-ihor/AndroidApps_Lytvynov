@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class ListRecycleActivity : AppCompatActivity() {
     private val viewModel: RecipesViewModel by viewModels()
     private lateinit var adapter: FoodAdapter
 
