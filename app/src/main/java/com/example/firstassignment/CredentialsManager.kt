@@ -1,7 +1,13 @@
 package com.example.firstassignment
 
-class CredentialsManager {
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
+class CredentialsManager public constructor() {
     private val credentials = mutableMapOf<String, String>()
+
+    private val _isLoggedIn = MutableStateFlow(false)
+    val isLoggedIn: StateFlow<Boolean> = _isLoggedIn
 
     private val emailPattern = ("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
             "\\@" +
@@ -26,9 +32,20 @@ class CredentialsManager {
 
     fun login(email: String, password: String): Boolean {
         if (email == "test@te.st" && password == "1234") {
+            _isLoggedIn.value = true
             return true
         }
-        return areCredentialsValid(email, password)
+
+        if (areCredentialsValid(email, password)) {
+            _isLoggedIn.value = true
+            return true
+        }
+
+        return false
+    }
+
+    fun logout() {
+        _isLoggedIn.value = false
     }
 
     fun register(email: String, password: String): Boolean {
@@ -41,5 +58,9 @@ class CredentialsManager {
             return true
         }
         return false
+    }
+
+    companion object {
+        val instance: CredentialsManager by lazy { CredentialsManager() }
     }
 }
