@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 
 class LoginFragment : Fragment(R.layout.login_activity) {
-    private val credentialsManager = CredentialsManager()
+    private val credentialsManager = CredentialsManager.instance
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,8 +22,6 @@ class LoginFragment : Fragment(R.layout.login_activity) {
         loginNextButton.setOnClickListener {
             val emailText = loginEmail.editText?.text.toString().trim()
             val passwordText = loginPassword.editText?.text.toString().trim()
-            val correctEmail = "test@te.st"
-            val correctPassword = "1234"
 
             loginEmail.error = null
             loginPassword.error = null
@@ -38,12 +36,10 @@ class LoginFragment : Fragment(R.layout.login_activity) {
                 return@setOnClickListener
             }
 
-            val loginSuccessful = (emailText == correctEmail && passwordText == correctPassword) ||
-                    credentialsManager.login(emailText, passwordText)
+            val loginSuccessful = credentialsManager.login(emailText, passwordText)
 
             if (loginSuccessful) {
-                val goToMain = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(goToMain)
+                (requireActivity() as? SampleViewsActivity)?.switchToRecipesFragment()
             } else {
                 loginEmail.error = "Incorrect email or password"
                 loginPassword.error = "Incorrect email or password"

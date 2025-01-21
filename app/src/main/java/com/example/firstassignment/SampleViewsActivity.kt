@@ -8,8 +8,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class SampleViewsActivity : AppCompatActivity() {
+    private val credentialsManager = CredentialsManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,9 +25,18 @@ class SampleViewsActivity : AppCompatActivity() {
             insets
         }
 
-        // Set the initial fragment
-        supportFragmentManager.commit {
-            replace<LoginFragment>(R.id.sampleActivity)
+        lifecycleScope.launch {
+            credentialsManager.isLoggedIn.collectLatest { isLoggedIn ->
+                if (isLoggedIn) {
+                    switchToRecipesFragment()
+                } else {
+                    switchToLoginFragment()
+                }
+            }
+        }
+
+        if (savedInstanceState == null) {
+            switchToLoginFragment()
         }
     }
 
@@ -36,7 +50,12 @@ class SampleViewsActivity : AppCompatActivity() {
     fun switchToLoginFragment() {
         supportFragmentManager.commit {
             replace<LoginFragment>(R.id.sampleActivity)
-            addToBackStack(null) // Enable back navigation
+        }
+    }
+
+    fun switchToRecipesFragment() {
+        supportFragmentManager.commit {
+            replace<RecipesFragment>(R.id.sampleActivity)
         }
     }
 }
